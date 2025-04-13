@@ -14,18 +14,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String   @default("SYSTEM")
+  updatedBy String   @default("SYSTEM")
+  isDeleted Boolean  @default(false)
+  users     User[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  authorId  Int
-  author    User    @relation(fields: [authorId], references: [id])
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  rfidKey   String?  @unique
+  roleId    Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String   @default("SYSTEM")
+  updatedBy String   @default("SYSTEM")
+  isDeleted Boolean  @default(false)
+  role      Role     @relation(fields: [roleId], references: [id])
+  orders    Order[]
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  buy       Float    @default(0)
+  sell      Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String   @default("SYSTEM")
+  updatedBy String   @default("SYSTEM")
+  isDeleted Boolean  @default(false)
+  orders    Order[]
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  quantity  Int
+  paid      Boolean
+  aproved   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  createdBy String
+  updatedBy String
+  isDeleted Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 }

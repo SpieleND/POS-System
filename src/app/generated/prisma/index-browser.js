@@ -117,23 +117,63 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.RoleScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  name: 'name'
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  isDeleted: 'isDeleted'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  username: 'username',
+  rfidKey: 'rfidKey',
+  roleId: 'roleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  buy: 'buy',
+  sell: 'sell',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  isDeleted: 'isDeleted'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  productId: 'productId',
+  quantity: 'quantity',
+  paid: 'paid',
+  aproved: 'aproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.RoleOrderByRelevanceFieldEnum = {
+  name: 'name',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
 };
 
 exports.Prisma.NullsOrder = {
@@ -142,19 +182,29 @@ exports.Prisma.NullsOrder = {
 };
 
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  email: 'email',
-  name: 'name'
+  username: 'username',
+  rfidKey: 'rfidKey',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
 };
 
-exports.Prisma.PostOrderByRelevanceFieldEnum = {
-  title: 'title',
-  content: 'content'
+exports.Prisma.ProductOrderByRelevanceFieldEnum = {
+  name: 'name',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.OrderOrderByRelevanceFieldEnum = {
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
 };
 
 
 exports.Prisma.ModelName = {
+  Role: 'Role',
   User: 'User',
-  Post: 'Post'
+  Product: 'Product',
+  Order: 'Order'
 };
 
 /**
