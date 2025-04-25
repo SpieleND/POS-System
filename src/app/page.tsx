@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Divider,
   Grid,
   List,
   ListItem,
@@ -101,8 +102,8 @@ export default async function Home() {
           </Grid>
         </Grid>
         <Grid size={4}>
-          <Box padding={2} height={'100%'} alignContent={'end'}>
-            <List>
+          <Stack gap={2} height={'100%'}>
+            <List style={{ flexGrow: 1, alignContent: 'end' }}>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar></Avatar>
@@ -122,11 +123,13 @@ export default async function Home() {
                 <ListItemText primary="Vacation" secondary="July 20, 2014" />
               </ListItem>
             </List>
+            <Divider />
+            <h3>Summe:</h3>
             <Stack direction={'row'}>
               <Button variant="contained">Bezahlen</Button>
               <Button variant="outlined">Abbruch</Button>
             </Stack>
-          </Box>
+          </Stack>
         </Grid>
       </Grid>
     </Stack>
