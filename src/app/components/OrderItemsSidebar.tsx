@@ -1,48 +1,57 @@
+import { ShoppingCartOutlined } from '@mui/icons-material'
 import {
-  Avatar,
+  Alert,
   Button,
   Divider,
   List,
   ListItem,
-  ListItemAvatar,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
   Stack,
+  Typography,
 } from '@mui/material'
+import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
+import { toEuro } from '../lib/to-euro'
 import { OrderContext } from '../products/page'
 
 export default function OrderItemsSidebar() {
-  const { orderItems } = useContext(OrderContext)
+  const { orderItems, products } = useContext(OrderContext)
 
   return (
     <Stack gap={2} height={'100%'}>
-      <List style={{ flexGrow: 1, alignContent: 'end'}}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar></Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar></Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Work" secondary="Jan 7, 2014" />
-        </ListItem>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar></Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Vacation" secondary="July 20, 2014" />
-        </ListItem>
-        {...orderItems.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemAvatar>
-              <Avatar></Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={item} secondary="Jan 9, 2014" />
-          </ListItem>
-        ))}
+      <List style={{ flexGrow: 1, alignContent: 'end' }}>
+        {orderItems.length > 0 ? (
+          orderItems.map((item, index) => {
+            const product = products.find((product) => product.id === item)
+            if (!product)
+              return (
+                <Alert key={index} severity="error">
+                  Product Id not found.
+                </Alert>
+              )
+
+            return (
+              <>
+                <ListItemButton key={index}>
+                  <ListItemIcon>
+                    <ShoppingCartOutlined />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={product.name}
+                    secondary={toEuro(product.sell)}
+                  />
+                </ListItemButton>
+                <Divider component="li" />
+              </>
+            )
+          })
+        ) : (
+          <Typography color={grey[500]} variant="body2">
+            Kein Produkt ausgewählt
+          </Typography>
+        )}
       </List>
       <Divider />
       <h3>Summe:</h3>

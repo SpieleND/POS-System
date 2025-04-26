@@ -8,6 +8,7 @@ import {
 import { useContext } from 'react'
 import { Product } from '../generated/prisma'
 import { OrderContext } from '../products/page'
+import { toEuro } from '../lib/to-euro'
 
 export default function ProductCard({ product }: { product: Product }) {
   const {addItem} = useContext(OrderContext)
@@ -26,10 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {new Intl.NumberFormat('de-DE', {
-              style: 'currency',
-              currency: 'EUR',
-            }).format(product.sell)}
+            {toEuro(product.sell)}
           </Typography>
         </CardContent>
       </CardActionArea>

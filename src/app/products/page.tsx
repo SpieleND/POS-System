@@ -10,6 +10,7 @@ import { OrderItem, Product } from '../generated/prisma'
 interface OrderContextType {
   orderItems: number[]
   addItem: (item: number) => void
+  products: Product[]
 }
 
 interface ProductsPageProps {
@@ -23,12 +24,12 @@ export const OrderContext = createContext<OrderContextType>(
 export default function ProductsPage({ products }: ProductsPageProps) {
   const [orderItems, setOrderItems] = useState<number[]>([])
 
-  const addOrderItem = (item: number) => {
+  const addItem = (item: number) => {
     setOrderItems((prevItems) => [...prevItems, item])
   }
 
   return (
-    <OrderContext.Provider value={{ orderItems, addItem: addOrderItem }}>
+    <OrderContext.Provider value={{ orderItems, addItem, products }}>
       <Stack width={'100%'} height={'100%'} padding={2} gap={2}>
         <Header />
         <Grid container spacing={2} height={'100%'}>
