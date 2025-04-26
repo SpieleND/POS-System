@@ -139,11 +139,11 @@ exports.Prisma.UserScalarFieldEnum = {
   isDeleted: 'isDeleted'
 };
 
-exports.Prisma.ProductScalarFieldEnum = {
+exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  buy: 'buy',
-  sell: 'sell',
+  userId: 'userId',
+  paid: 'paid',
+  approved: 'approved',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
@@ -151,13 +151,20 @@ exports.Prisma.ProductScalarFieldEnum = {
   isDeleted: 'isDeleted'
 };
 
-exports.Prisma.OrderScalarFieldEnum = {
+exports.Prisma.OrderItemScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
+  orderId: 'orderId',
   productId: 'productId',
   quantity: 'quantity',
-  paid: 'paid',
-  aproved: 'aproved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  buy: 'buy',
+  sell: 'sell',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdBy: 'createdBy',
@@ -188,13 +195,13 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   updatedBy: 'updatedBy'
 };
 
-exports.Prisma.ProductOrderByRelevanceFieldEnum = {
-  name: 'name',
+exports.Prisma.OrderOrderByRelevanceFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy'
 };
 
-exports.Prisma.OrderOrderByRelevanceFieldEnum = {
+exports.Prisma.ProductOrderByRelevanceFieldEnum = {
+  name: 'name',
   createdBy: 'createdBy',
   updatedBy: 'updatedBy'
 };
@@ -203,8 +210,9 @@ exports.Prisma.OrderOrderByRelevanceFieldEnum = {
 exports.Prisma.ModelName = {
   Role: 'Role',
   User: 'User',
-  Product: 'Product',
-  Order: 'Order'
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Product: 'Product'
 };
 
 /**

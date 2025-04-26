@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '../src/app/generated/prisma'
+import { PrismaClient } from '../src/app/generated/prisma'
 
 const prisma = new PrismaClient()
 
@@ -52,28 +52,40 @@ export async function main() {
     },
   })
 
-  // Seed Orders
-  await prisma.order.create({
+  // Seed Orders and OrderItems
+  const order1 = await prisma.order.create({
     data: {
       user: { connect: { id: adminUser.id } },
-      product: { connect: { id: product1.id } },
-      quantity: 2,
       paid: true,
-      aproved: true,
+      approved: true,
       createdBy: 'system',
       updatedBy: 'system',
+      items: {
+        create: [
+          {
+            product: { connect: { id: product1.id } },
+            quantity: 2,
+          },
+        ],
+      },
     },
   })
 
-  await prisma.order.create({
+  const order2 = await prisma.order.create({
     data: {
       user: { connect: { id: regularUser.id } },
-      product: { connect: { id: product2.id } },
-      quantity: 1,
       paid: false,
-      aproved: false,
+      approved: false,
       createdBy: 'system',
       updatedBy: 'system',
+      items: {
+        create: [
+          {
+            product: { connect: { id: product2.id } },
+            quantity: 1,
+          },
+        ],
+      },
     },
   })
 }
