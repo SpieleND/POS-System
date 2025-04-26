@@ -1,3 +1,5 @@
+'use client'
+
 import { Stack, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
 
@@ -13,7 +15,7 @@ export default function Header() {
         height={100}
         layout="intrinsic"
       />
-      <Typography variant="h4" sx={{ marginTop: theme.spacing(2) }}>
+      <Typography variant="h4" marginTop={theme.spacing(2)}>
         POS
       </Typography>
     </Stack>

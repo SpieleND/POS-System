@@ -1,11 +1,12 @@
-import { Grid } from '@mui/material';
-import ProductCard from './ProductCard';
+import { Grid } from '@mui/material'
+import { Product } from '../generated/prisma'
+import ProductCard from './ProductCard'
 
-export default function ProductGrid({
-  products,
-}: {
-  products: { name: string; sell: number }[];
-}) {
+interface ProductGridProps {
+  products: Product[]
+}
+
+export default function ProductGrid({ products }: ProductGridProps) {
   return (
     <Grid
       container
@@ -18,5 +19,5 @@ export default function ProductGrid({
         </Grid>
       ))}
     </Grid>
-  );
+  )
 }

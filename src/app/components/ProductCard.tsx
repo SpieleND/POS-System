@@ -4,16 +4,17 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from '@mui/material';
+} from '@mui/material'
+import { useContext } from 'react'
+import { Product } from '../generated/prisma'
+import { OrderContext } from '../products/page'
 
-export default function ProductCard({
-  product,
-}: {
-  product: { name: string; sell: number };
-}) {
+export default function ProductCard({ product }: { product: Product }) {
+  const {addItem} = useContext(OrderContext)
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={() => addItem(product.id)}>
         <CardMedia
           component="img"
           height="140"
@@ -33,5 +34,5 @@ export default function ProductCard({
         </CardContent>
       </CardActionArea>
     </Card>
-  );
+  )
 }

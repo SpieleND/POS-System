@@ -1,9 +1,9 @@
-import prisma from '@/lib/prisma';
-import ProductsPage from './products/page';
+import prisma from '@/lib/prisma'
+import ProductsPage from './products/page'
 
 export default async function Home() {
   try {
-    await prisma.$connect();
+    await prisma.$connect()
   } catch (error) {
     return (
       <div>
@@ -13,10 +13,10 @@ export default async function Home() {
           to start the database.
         </p>
       </div>
-    );
+    )
   }
 
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany()
 
-  return <ProductsPage products={products} />;
+  return <ProductsPage products={products} />
 }
