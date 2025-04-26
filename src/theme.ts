@@ -6,7 +6,6 @@ const theme = createTheme({
     fontFamily: 'var(--font-roboto)',
   },
   cssVariables: true,
-  spacing: [0, 4, 8, 16, 32, 64],
 });
 
 export default theme;

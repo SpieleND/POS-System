@@ -1,9 +1,11 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import Image from 'next/image';
 
 export default function Header() {
+  const theme = useTheme();
+
   return (
-    <Stack direction="row" alignItems={'center'}>
+    <Stack direction="row" alignItems="center">
       <Image
         src={'/images/logo.png'}
         alt="Logo"
@@ -11,7 +13,9 @@ export default function Header() {
         height={100}
         layout="intrinsic"
       />
-      <Typography variant="h4">POS</Typography>
+      <Typography variant="h4" sx={{ marginTop: theme.spacing(2) }}>
+        POS
+      </Typography>
     </Stack>
   );
 }
