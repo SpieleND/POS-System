@@ -4,7 +4,6 @@ import {
   Button,
   Divider,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -20,8 +19,8 @@ export default function OrderItemsSidebar() {
   const { orderItems, products } = useContext(OrderContext)
 
   return (
-    <Stack gap={2} height={'100%'}>
-      <List style={{ flexGrow: 1, alignContent: 'end' }}>
+    <Stack gap={2} height={'80%'} position={'absolute'}>
+      <List style={{ flexGrow: 1, alignContent: 'end', overflow:'auto', position: 'relative' }}>
         {orderItems.length > 0 ? (
           orderItems.map((item, index) => {
             const product = products.find((product) => product.id === item)
@@ -33,18 +32,15 @@ export default function OrderItemsSidebar() {
               )
 
             return (
-              <>
-                <ListItemButton key={index}>
-                  <ListItemIcon>
-                    <ShoppingCartOutlined />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={product.name}
-                    secondary={toEuro(product.sell)}
-                  />
-                </ListItemButton>
-                <Divider component="li" />
-              </>
+              <ListItemButton key={index}>
+                <ListItemIcon>
+                  <ShoppingCartOutlined />
+                </ListItemIcon>
+                <ListItemText
+                  primary={product.name}
+                  secondary={toEuro(product.sell)}
+                />
+              </ListItemButton>
             )
           })
         ) : (
