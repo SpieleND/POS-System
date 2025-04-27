@@ -1,3 +1,5 @@
+'use client'
+
 import { ShoppingCartOutlined } from '@mui/icons-material'
 import {
   Alert,
@@ -13,17 +15,28 @@ import {
 import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
 import { toEuro } from '../lib/to-euro'
-import { OrderContext } from '../products/page'
+import { CartOrderItem, OrderContext } from '../products/page'
+import { Product } from '../generated/prisma'
+
+const sumOrderItems = (orderItems: CartOrderItem[], products: Product[]) => {
+  return orderItems.reduce((sum, item) => {
+    const product = products.find((product) => product.id === item.productId)
+    if (product) {
+      return sum + product.sell * item.amount
+    }
+    return sum
+  }, 0)
+}
 
 export default function OrderItemsSidebar() {
-  const { orderItems, products } = useContext(OrderContext)
+  const { orderItems, products, resetOrderItems, removeItem } = useContext(OrderContext)
 
   return (
-    <Stack gap={2} height={'80%'} position={'absolute'}>
-      <List style={{ flexGrow: 1, alignContent: 'end', overflow:'auto', position: 'relative' }}>
+    <Stack gap={2} height={'100%'}>
+      <List style={{ flexGrow: 1, alignContent: 'end'}}>
         {orderItems.length > 0 ? (
           orderItems.map((item, index) => {
-            const product = products.find((product) => product.id === item)
+            const product = products.find((product) => product.id === item.productId)
             if (!product)
               return (
                 <Alert key={index} severity="error">
@@ -32,7 +45,7 @@ export default function OrderItemsSidebar() {
               )
 
             return (
-              <ListItemButton key={index}>
+              <ListItemButton key={index} onClick={() => removeItem(product.id)}>
                 <ListItemIcon>
                   <ShoppingCartOutlined />
                 </ListItemIcon>
@@ -40,6 +53,9 @@ export default function OrderItemsSidebar() {
                   primary={product.name}
                   secondary={toEuro(product.sell)}
                 />
+                <Typography variant="h5" color={grey[500]}>
+                  x{item.amount}
+                </Typography>
               </ListItemButton>
             )
           })
@@ -50,10 +66,14 @@ export default function OrderItemsSidebar() {
         )}
       </List>
       <Divider />
+      <Stack direction={'row'} justifyContent={'space-between'} padding={2}>
+
       <h3>Summe:</h3>
-      <Stack direction={'row'}>
+      <h3>{toEuro(sumOrderItems(orderItems, products))}</h3>
+      </Stack>
+      <Stack direction={'row'} justifyContent={'space-between'} >
         <Button variant="contained">Bezahlen</Button>
-        <Button variant="outlined">Abbruch</Button>
+        <Button variant="outlined" onClick={() => resetOrderItems()}>Abbruch</Button>
       </Stack>
     </Stack>
   )

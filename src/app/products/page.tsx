@@ -2,14 +2,21 @@
 
 import { Grid, Stack } from '@mui/material'
 import { createContext, useState } from 'react'
-import Header from '../components/Header'
-import OrderItemsSidebar from '../components/OrderItemsSidebar'
-import ProductGrid from '../components/ProductGrid'
+import Header from '../ui/Header'
+import OrderItemsSidebar from '../ui/OrderItemsSidebar'
+import ProductGrid from '../ui/ProductGrid'
 import { OrderItem, Product } from '../generated/prisma'
 
+export interface CartOrderItem {
+  productId: number
+  amount: number
+}
+
 interface OrderContextType {
-  orderItems: number[]
+  orderItems: CartOrderItem[]
   addItem: (item: number) => void
+  removeItem: (item: number) => void
+  resetOrderItems: () => void
   products: Product[]
 }
 
@@ -22,14 +29,47 @@ export const OrderContext = createContext<OrderContextType>(
 )
 
 export default function ProductsPage({ products }: ProductsPageProps) {
-  const [orderItems, setOrderItems] = useState<number[]>([])
+  const [orderItems, setOrderItems] = useState<CartOrderItem[]>([])
 
-  const addItem = (item: number) => {
-    setOrderItems((prevItems) => [...prevItems, item])
+  const addItem = (itemId: number) => {
+    const existingItem = orderItems.find((item) => item.productId === itemId)
+    if (existingItem) {
+      setOrderItems((prev) =>
+        prev.map((item) =>
+          item.productId === itemId
+            ? { ...item, amount: item.amount + 1 }
+            : item,
+        ),
+      )
+    } else {
+      setOrderItems((prev) => [...prev, { productId: itemId, amount: 1 }])
+    }
   }
 
+  const removeItem = (itemId: number) => {
+    const existingItem = orderItems.find((item) => item.productId === itemId)
+    if (existingItem) {
+      if (existingItem.amount > 1) {
+        setOrderItems((prev) =>
+          prev.map((item) =>
+            item.productId === itemId
+              ? { ...item, amount: item.amount - 1 }
+              : item,
+          ),
+        )
+      } else {
+        setOrderItems((prev) => prev.filter((item) => item.productId !== itemId))
+      }
+    }
+  }
+
+  const resetOrderItems = () => {
+    setOrderItems([])
+  }
+
+
   return (
-    <OrderContext.Provider value={{ orderItems, addItem, products }}>
+    <OrderContext.Provider value={{ orderItems, addItem, products, resetOrderItems, removeItem }}>
       <Stack width={'100%'} height={'100%'} padding={2} gap={2}>
         <Header />
         <Grid container spacing={2} height={'100%'}>

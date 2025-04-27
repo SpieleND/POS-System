@@ -1,3 +1,5 @@
+'use client'
+
 import { Grid } from '@mui/material'
 import { Product } from '../generated/prisma'
 import ProductCard from './ProductCard'
