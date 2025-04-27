@@ -1,9 +1,10 @@
-import { ThemeProvider } from '@mui/material'
+import { Stack, ThemeProvider } from '@mui/material'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import theme from '../theme'
 import './globals.css'
+import Header from './ui/Header'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,7 +30,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider options={{ key: 'css' }}>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <Stack width={'100%'} height={'100%'} padding={2} gap={2}>
+              <Header />
+              {children}
+            </Stack>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

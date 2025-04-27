@@ -18,5 +18,7 @@ export default async function Home() {
 
   const products = await prisma.product.findMany()
 
+  
+
   return <ProductsPage products={products} />
 }
