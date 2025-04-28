@@ -14,4 +14,12 @@ export const handleAddProduct = async (name: string, buy: number, sell: number) 
   })
 }
 
+export const handleDeleteProduct = async (id: number) => {
+  await prisma.product.delete({
+    where: {
+      id: id,
+    },
+  })
+}
+
 export default useProducts

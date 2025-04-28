@@ -1,6 +1,5 @@
-'use server'
-
-import useProducts from '@/app/lib/add-product'
+import { Product } from '@/app/generated/prisma'
+import useProducts, { handleDeleteProduct } from '@/app/lib/use-product'
 import {
   Button,
   Paper,
@@ -11,9 +10,24 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
+import { useEffect, useState } from 'react'
 
-export const ProductTable = async () => {
-  const products = await useProducts()
+export const ProductTable = () => {
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData: Product[] = await useProducts()
+        setProducts(productsData)
+      } catch (error) {
+        console.error('Failed to fetch products:', error)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -34,7 +48,7 @@ export const ProductTable = async () => {
               <TableCell>{product.buy}</TableCell>
               <TableCell>{product.sell}</TableCell>
               <TableCell>
-                <Button color="secondary">Delete</Button>
+                <Button color="secondary" onClick={async () => await handleDeleteProduct(product.id)}>Delete</Button>
               </TableCell>
             </TableRow>
           ))}
