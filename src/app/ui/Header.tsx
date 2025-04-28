@@ -9,9 +9,11 @@ import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Header() {
+  const router = useRouter()
   const theme = useTheme()
   const [openSpeedDial, setOpenSpeedDial] = useState(false)
 
@@ -19,13 +21,14 @@ export default function Header() {
     {
       icon: <AdminPanelSettingsOutlined />,
       name: 'Administration',
-      onClick: () => {},
+      onClick: () => router.push('/admin'),
     },
     {
       icon: <LockPersonOutlined />,
       name: 'Sperre Adminbereich',
       onClick: () => {
         setOpenSpeedDial(false)
+        router.push('/')
       },
     },
   ]
@@ -39,7 +42,10 @@ export default function Header() {
           width={200}
           height={100}
           layout="intrinsic"
-          onClick={() => setOpenSpeedDial(!openSpeedDial)}
+          onClick={() => {
+            if(openSpeedDial === false) setOpenSpeedDial(!openSpeedDial)
+            router.push('/')
+          }}
         />
         <Typography variant="h4" marginTop={theme.spacing(2)}>
           POS

@@ -130,7 +130,6 @@ exports.Prisma.RoleScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
-  rfidKey: 'rfidKey',
   roleId: 'roleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -157,7 +156,10 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   productId: 'productId',
   quantity: 'quantity',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -183,19 +185,18 @@ exports.Prisma.RoleOrderByRelevanceFieldEnum = {
   updatedBy: 'updatedBy'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
   username: 'username',
-  rfidKey: 'rfidKey',
   createdBy: 'createdBy',
   updatedBy: 'updatedBy'
 };
 
 exports.Prisma.OrderOrderByRelevanceFieldEnum = {
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy'
+};
+
+exports.Prisma.OrderItemOrderByRelevanceFieldEnum = {
   createdBy: 'createdBy',
   updatedBy: 'updatedBy'
 };

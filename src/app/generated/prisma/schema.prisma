@@ -28,7 +28,6 @@ model Role {
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
-  rfidKey   String?  @unique
   roleId    Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -39,31 +38,43 @@ model User {
   orders    Order[]
 }
 
-model Product {
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  paid      Boolean
+  approved  Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  createdBy String      @default("SYSTEM")
+  updatedBy String      @default("SYSTEM")
+  isDeleted Boolean     @default(false)
+  user      User        @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+}
+
+model OrderItem {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
-  buy       Float    @default(0)
-  sell      Float    @default(0)
+  orderId   Int
+  productId Int
+  quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   createdBy String   @default("SYSTEM")
   updatedBy String   @default("SYSTEM")
   isDeleted Boolean  @default(false)
-  orders    Order[]
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 }
 
-model Order {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  productId Int
-  quantity  Int
-  paid      Boolean
-  aproved   Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  createdBy String
-  updatedBy String
-  isDeleted Boolean  @default(false)
-  user      User     @relation(fields: [userId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
+model Product {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  buy       Float       @default(0)
+  sell      Float       @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  createdBy String      @default("SYSTEM")
+  updatedBy String      @default("SYSTEM")
+  isDeleted Boolean     @default(false)
+  items     OrderItem[]
 }

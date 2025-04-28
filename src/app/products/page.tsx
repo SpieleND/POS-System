@@ -70,7 +70,6 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
   return (
     <OrderContext.Provider value={{ orderItems, addItem, products, resetOrderItems, removeItem }}>
-
         <Grid container spacing={2} height={'100%'}>
           <Grid size={'grow'}>
             <ProductGrid products={products} />

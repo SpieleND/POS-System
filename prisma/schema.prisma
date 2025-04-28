@@ -28,7 +28,6 @@ model Role {
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
-  rfidKey   String?  @unique
   roleId    Int      @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,11 +45,11 @@ model Order {
   approved  Boolean     @default(false)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  createdBy String
-  updatedBy String
+  createdBy String      @default("SYSTEM")
+  updatedBy String      @default("SYSTEM")
   isDeleted Boolean     @default(false)
   user      User        @relation(fields: [userId], references: [id])
-  items     OrderItem[] // Relation to OrderItem
+  items     OrderItem[]
 }
 
 model OrderItem {
@@ -60,6 +59,9 @@ model OrderItem {
   quantity  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  createdBy String   @default("SYSTEM")
+  updatedBy String   @default("SYSTEM")
+  isDeleted Boolean  @default(false)
   order     Order    @relation(fields: [orderId], references: [id])
   product   Product  @relation(fields: [productId], references: [id])
 }
@@ -74,5 +76,5 @@ model Product {
   createdBy String      @default("SYSTEM")
   updatedBy String      @default("SYSTEM")
   isDeleted Boolean     @default(false)
-  items     OrderItem[] // Relation to OrderItem
+  items     OrderItem[]
 }

@@ -22,7 +22,6 @@ export async function main() {
   const adminUser = await prisma.user.create({
     data: {
       username: 'admin',
-      rfidKey: '123456',
       role: { connect: { id: adminRole.id } },
     },
   })
@@ -30,7 +29,6 @@ export async function main() {
   const regularUser = await prisma.user.create({
     data: {
       username: 'user1',
-      rfidKey: '654321',
       role: { connect: { id: userRole.id } },
     },
   })
