@@ -1,19 +1,15 @@
 'use client'
 
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@mui/material'
+import { Add, AddCircleOutline } from '@mui/icons-material'
+import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
 import { Product } from '../generated/prisma'
-import { OrderContext } from '../products/page'
 import { toEuro } from '../lib/to-euro'
+import { OrderContext } from '../products/page'
+import { Card, CardActionArea, CardMedia, CardContent, Grid, Typography } from '@mui/material'
 
 export default function ProductCard({ product }: { product: Product }) {
-  const {addItem} = useContext(OrderContext)
+  const { addItem } = useContext(OrderContext)
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -25,12 +21,19 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {product.name}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {toEuro(product.sell)}
-          </Typography>
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Grid>
+              <Typography gutterBottom variant="h5" component="div">
+                {product.name}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {toEuro(product.sell)}
+              </Typography>
+            </Grid>
+            <Grid>
+              <Add fontSize='large' sx={{color: grey[500]}} />
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>

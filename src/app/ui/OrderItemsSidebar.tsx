@@ -82,7 +82,7 @@ export default function OrderItemsSidebar() {
         </Typography>
       </Stack>
       <Stack direction={'row'} justifyContent={'space-between'}>
-        <Button variant="contained">Bezahlen</Button>
+        <Button variant="contained"  onClick={() => resetOrderItems()}>Bezahlen</Button>
         <Button variant="outlined" onClick={() => resetOrderItems()}>
           Abbruch
         </Button>
