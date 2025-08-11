@@ -1,5 +1,7 @@
+'use client'
+
 import { Product } from '@/app/generated/prisma'
-import useProducts, { handleDeleteProduct } from '@/app/lib/use-product'
+import { deleteProduct } from '@/app/lib/ProductService'
 import {
   Button,
   Paper,
@@ -10,24 +12,13 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { FC } from 'react'
 
-export const ProductTable = () => {
-  const [products, setProducts] = useState<Product[]>([])
+interface ProductTableProps {
+  products: Product[]
+}
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productsData: Product[] = await useProducts()
-        setProducts(productsData)
-      } catch (error) {
-        console.error('Failed to fetch products:', error)
-      }
-    }
-
-    fetchProducts()
-  }, [])
-
+export const ProductTable: FC<ProductTableProps> = ({ products }) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -41,17 +32,33 @@ export const ProductTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.id}</TableCell>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.buy}</TableCell>
-              <TableCell>{product.sell}</TableCell>
-              <TableCell>
-                <Button color="secondary" onClick={async () => await handleDeleteProduct(product.id)}>Delete</Button>
+          {products.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} align="center">
+                No products available
               </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            products.map((product) => (
+              <TableRow key={product.id}>
+                <TableCell>{product.id}</TableCell>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.buy}</TableCell>
+                <TableCell>{product.sell}</TableCell>
+                <TableCell>
+                  <form
+                    action={async () => {
+                      await deleteProduct(product.id)
+                    }}
+                  >
+                    <Button type="submit" color="secondary">
+                      Delete
+                    </Button>
+                  </form>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>
