@@ -2,15 +2,12 @@
 
 import Form from 'next/form'
 import { Card, CardContent, Typography, TextField, Button } from '@mui/material'
-import { addProduct } from '@/app/lib/ProductService'
+import { addProduct } from '@/app/api/products/addProduct'
 
 const AddProductForm = () => {
   return (
     <Card style={{ flex: 1 }}>
       <CardContent>
-        <Typography variant="h5" gutterBottom>
-          Product Management
-        </Typography>
         <Typography variant="h6">Add New Product</Typography>
         <Form action={addProduct}>
           <TextField
