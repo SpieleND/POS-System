@@ -11,9 +11,9 @@ import {
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
-import { Product } from '../generated/prisma'
-import { toEuro } from '../lib/to-euro'
-import { OrderContext } from '../orders/page'
+import { Product } from '../../generated/prisma'
+import { toEuro } from '../../lib/to-euro'
+import { OrderContext } from '../page'
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useContext(OrderContext)

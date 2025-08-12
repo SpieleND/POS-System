@@ -1,10 +1,10 @@
 'use client'
 
+import { Grid } from '@mui/material'
 import { createContext, useState } from 'react'
 import { Product } from '../generated/prisma'
-import OrderItemsSidebar from '../ui/OrderItemsSidebar'
-import ProductGrid from '../ui/ProductGrid'
-import { Grid } from '@mui/material'
+import OrderItemsSidebar from './ui/OrderItemsSidebar'
+import ProductGrid from './ui/ProductGrid'
 
 export interface CartOrderItem {
   productId: number

@@ -16,9 +16,9 @@ import {
 import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
 import { TransitionGroup } from 'react-transition-group'
-import { Product } from '../generated/prisma'
-import { toEuro } from '../lib/to-euro'
-import { CartOrderItem, OrderContext } from '../orders/page'
+import { Product } from '../../generated/prisma'
+import { toEuro } from '../../lib/to-euro'
+import { CartOrderItem, OrderContext } from '../page'
 
 const sumOrderItems = (orderItems: CartOrderItem[], products: Product[]) => {
   return orderItems.reduce((sum, item) => {
@@ -34,10 +34,12 @@ export default function OrderItemsSidebar() {
   const { orderItems, products, resetOrderItems, removeItem } =
     useContext(OrderContext)
 
+  const orderItemsSelected = orderItems.length > 0
+
   return (
     <Stack gap={2} height={'100%'}>
       <List style={{ flexGrow: 1, alignContent: 'end' }}>
-        {orderItems.length > 0 ? (
+        {orderItemsSelected ? (
           <TransitionGroup>
             {orderItems.map((item, index) => {
               const product = products.find(
@@ -82,7 +84,7 @@ export default function OrderItemsSidebar() {
         </Typography>
       </Stack>
       <Stack direction={'row'} justifyContent={'space-between'}>
-        <Button variant="contained" onClick={() => resetOrderItems()}>
+        <Button variant="contained" onClick={() => resetOrderItems()} disabled={!orderItemsSelected}>
           Bezahlen
         </Button>
         <Button variant="outlined" onClick={() => resetOrderItems()}>

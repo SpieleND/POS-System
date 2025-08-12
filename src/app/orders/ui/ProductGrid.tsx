@@ -2,7 +2,7 @@
 
 import { Grid, Typography } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { Product } from '../generated/prisma'
+import { Product } from '../../generated/prisma'
 import ProductCard from './ProductCard'
 
 interface ProductGridProps {
@@ -23,7 +23,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
           </Grid>
         ))
       ) : (
-        <Typography color={grey[500]} variant="body2"> 
+        <Typography color={grey[500]} variant="body2">
           Keine Produkte vorhanden
         </Typography>
       )}
