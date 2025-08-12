@@ -1,12 +1,19 @@
 'use client'
 
-import { Add, AddCircleOutline } from '@mui/icons-material'
+import { Add } from '@mui/icons-material'
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { useContext } from 'react'
 import { Product } from '../generated/prisma'
 import { toEuro } from '../lib/to-euro'
-import { OrderContext } from '../products/page'
-import { Card, CardActionArea, CardMedia, CardContent, Grid, Typography } from '@mui/material'
+import { OrderContext } from '../orders/page'
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useContext(OrderContext)
@@ -31,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
               </Typography>
             </Grid>
             <Grid>
-              <Add fontSize='large' sx={{color: grey[500]}} />
+              <Add fontSize="large" sx={{ color: grey[500] }} />
             </Grid>
           </Grid>
         </CardContent>

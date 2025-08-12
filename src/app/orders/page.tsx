@@ -1,11 +1,10 @@
 'use client'
 
-import { Grid, Stack } from '@mui/material'
 import { createContext, useState } from 'react'
-import Header from '../ui/Header'
+import { Product } from '../generated/prisma'
 import OrderItemsSidebar from '../ui/OrderItemsSidebar'
 import ProductGrid from '../ui/ProductGrid'
-import { OrderItem, Product } from '../generated/prisma'
+import { Grid } from '@mui/material'
 
 export interface CartOrderItem {
   productId: number
@@ -28,7 +27,7 @@ export const OrderContext = createContext<OrderContextType>(
   {} as OrderContextType,
 )
 
-export default function ProductsPage({ products }: ProductsPageProps) {
+export default function OrdersPage({ products }: ProductsPageProps) {
   const [orderItems, setOrderItems] = useState<CartOrderItem[]>([])
 
   const addItem = (itemId: number) => {
@@ -58,7 +57,9 @@ export default function ProductsPage({ products }: ProductsPageProps) {
           ),
         )
       } else {
-        setOrderItems((prev) => prev.filter((item) => item.productId !== itemId))
+        setOrderItems((prev) =>
+          prev.filter((item) => item.productId !== itemId),
+        )
       }
     }
   }
@@ -67,17 +68,18 @@ export default function ProductsPage({ products }: ProductsPageProps) {
     setOrderItems([])
   }
 
-
   return (
-    <OrderContext.Provider value={{ orderItems, addItem, products, resetOrderItems, removeItem }}>
-        <Grid container spacing={2} height={'100%'}>
-          <Grid size={'grow'}>
-            <ProductGrid products={products} />
-          </Grid>
-          <Grid size={4}>
-            <OrderItemsSidebar />
-          </Grid>
+    <OrderContext.Provider
+      value={{ orderItems, addItem, products, resetOrderItems, removeItem }}
+    >
+      <Grid container spacing={2} height={'100%'}>
+        <Grid size={'grow'}>
+          <ProductGrid products={products} />
         </Grid>
+        <Grid size={4}>
+          <OrderItemsSidebar />
+        </Grid>
+      </Grid>
     </OrderContext.Provider>
   )
 }

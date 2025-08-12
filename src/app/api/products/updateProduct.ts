@@ -15,6 +15,7 @@ export const updateProduct = async (id: number, formData: FormData) => {
       name,
       buy: buyPrice,
       sell: sellPrice,
+      updatedBy: 'guest',
     },
   })
 

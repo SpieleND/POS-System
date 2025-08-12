@@ -1,5 +1,5 @@
 import { getAllProducts } from '@/app/api/products/getAllProducts'
-import BackButton from '@/app/util/backButton'
+import BackButton from '@/app/util/BackButton'
 import { Stack, Typography } from '@mui/material'
 import AddProductForm from './ui/AddProductForm'
 import { ProductTable } from './ui/ProductTable'

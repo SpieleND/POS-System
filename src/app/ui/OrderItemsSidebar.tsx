@@ -18,7 +18,7 @@ import { useContext } from 'react'
 import { TransitionGroup } from 'react-transition-group'
 import { Product } from '../generated/prisma'
 import { toEuro } from '../lib/to-euro'
-import { CartOrderItem, OrderContext } from '../products/page'
+import { CartOrderItem, OrderContext } from '../orders/page'
 
 const sumOrderItems = (orderItems: CartOrderItem[], products: Product[]) => {
   return orderItems.reduce((sum, item) => {
@@ -82,7 +82,9 @@ export default function OrderItemsSidebar() {
         </Typography>
       </Stack>
       <Stack direction={'row'} justifyContent={'space-between'}>
-        <Button variant="contained"  onClick={() => resetOrderItems()}>Bezahlen</Button>
+        <Button variant="contained" onClick={() => resetOrderItems()}>
+          Bezahlen
+        </Button>
         <Button variant="outlined" onClick={() => resetOrderItems()}>
           Abbruch
         </Button>

@@ -14,6 +14,8 @@ export const addProduct = async (formData: FormData) => {
       name,
       buy: buyPrice,
       sell: sellPrice,
+      createdBy: 'guest',
+      updatedBy: 'guest',
     },
   })
 

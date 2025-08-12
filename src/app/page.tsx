@@ -1,6 +1,5 @@
 import prisma from '@/lib/prisma'
-import ProductsPage from './products/page'
-import initDB from './lib/init-db'
+import OrdersPage from './orders/page'
 
 export default async function Home() {
   try {
@@ -20,5 +19,5 @@ export default async function Home() {
 
   const products = await prisma.product.findMany()
 
-  return <ProductsPage products={products} />
+  return <OrdersPage products={products} />
 }
